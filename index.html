@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You Requested a Refill Builder | Elite Health Center NYC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#092e39;
+  --navy-2:#134656;
+  --blue:#8bcbdd;
+  --accent:#2a8ea8;
+  --ink:#0f2c36;
+  --muted:#58727e;
+  --danger:#c2413b;
+  --glass:rgba(255,255,255,.44);
+  --glass-strong:rgba(255,255,255,.62);
+  --glass-edge:rgba(255,255,255,.72);
+  --glass-shadow:0 12px 40px rgba(9,46,57,.10),inset 0 1px 0 rgba(255,255,255,.9);
+  --blur:blur(22px) saturate(170%);
+}
+*{box-sizing:border-box}
+html{background:#e2eef2}
+body{margin:0;min-height:100vh;font-family:'Onest',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:-15%;z-index:-1;pointer-events:none;background:
+  radial-gradient(38% 34% at 12% 18%,rgba(139,203,221,.85),transparent 70%),
+  radial-gradient(30% 28% at 88% 12%,rgba(42,142,168,.38),transparent 70%),
+  radial-gradient(42% 38% at 78% 82%,rgba(139,203,221,.7),transparent 70%),
+  radial-gradient(30% 30% at 18% 88%,rgba(9,46,57,.20),transparent 70%),
+  radial-gradient(26% 24% at 50% 50%,rgba(255,255,255,.7),transparent 70%),
+  linear-gradient(160deg,#eaf4f7,#d9e9ef)}
+button{font:inherit}
+:focus-visible{outline:3px solid rgba(42,142,168,.5);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+.glass{background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--glass-edge);box-shadow:var(--glass-shadow)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .glass{background:rgba(255,255,255,.86)}
+}
+
+/* Top bar */
+.topbar{position:sticky;top:12px;z-index:20;margin:14px 28px 0;border-radius:20px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:16px;min-width:0}
+.brand-logo{height:38px;width:auto;display:block}
+.brand-divider{width:1px;height:34px;background:linear-gradient(180deg,transparent,rgba(9,46,57,.25),transparent)}
+.brand h1{margin:0;font-size:17px;font-weight:700;color:var(--navy);letter-spacing:-.01em}
+.brand p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+.order-chip{font-size:13px;font-weight:700;color:var(--navy);background:rgba(139,203,221,.35);border:1px solid rgba(255,255,255,.8);padding:8px 14px;border-radius:999px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:40vw}
+@media (max-width:640px){
+  .topbar{margin:10px 12px 0;padding:12px 14px}
+  .brand-logo{height:28px}
+  .brand-divider,.brand div:last-child{display:none}
+}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,540px);gap:28px;padding:26px 28px 40px;max-width:1440px;margin:0 auto;align-items:start}
+@media (max-width:1100px){.layout{grid-template-columns:1fr;padding:18px 12px 32px}}
+
+.card{border-radius:22px;padding:22px 22px 24px;margin-bottom:24px}
+.card-head{display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.card-head h2{margin:0;font-size:16px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:10px}
+.card-head h2::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px rgba(139,203,221,.3)}
+.count{margin-left:auto;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.9);color:var(--accent);font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px}
+
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.span-3{grid-column:1/-1}
+@media (max-width:640px){.grid{grid-template-columns:1fr}.span-3{grid-column:auto}}
+
+.field label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin:0 0 7px 3px}
+.field label .req{color:var(--danger)}
+.field input,.field select,.field textarea{width:100%;font:inherit;font-size:14.5px;color:var(--ink);background:rgba(255,255,255,.58);border:1px solid rgba(9,46,57,.09);border-radius:12px;padding:11px 13px;outline:none;box-shadow:inset 0 1px 2px rgba(9,46,57,.05);transition:border-color .15s,box-shadow .15s,background-color .15s}
+.field textarea{resize:vertical;min-height:74px;line-height:1.45}
+.field select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:36px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2358727e' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
+.field input:hover,.field select:hover,.field textarea:hover{background-color:rgba(255,255,255,.72)}
+.field input:focus,.field select:focus,.field textarea:focus{background-color:rgba(255,255,255,.9);border-color:var(--accent);box-shadow:0 0 0 4px rgba(139,203,221,.45)}
+.field input::placeholder,.field textarea::placeholder{color:#93a7b0}
+.field input:disabled,.field select:disabled{opacity:.4;cursor:not-allowed}
+.field.invalid input,.field.invalid select{border-color:var(--danger);box-shadow:0 0 0 3px rgba(194,65,59,.15)}
+.money{position:relative}
+.money span{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14.5px;pointer-events:none}
+.money input{padding-left:28px}
+.help{font-size:12px;color:var(--muted);margin:7px 3px 0;line-height:1.45}
+
+/* Buttons */
+.btn{border-radius:13px;padding:11px 16px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:var(--navy);background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);box-shadow:0 4px 14px rgba(9,46,57,.07);transition:background-color .15s,transform .08s}
+.btn:hover{background:rgba(255,255,255,.85)}
+.btn:active{transform:scale(.98)}
+.btn-primary{color:#fff;border-color:rgba(255,255,255,.25);background:linear-gradient(135deg,var(--navy-2),var(--navy));box-shadow:0 8px 22px rgba(9,46,57,.28),inset 0 1px 0 rgba(255,255,255,.22)}
+.btn-primary:hover{background:linear-gradient(135deg,#1a5667,var(--navy))}
+.btn-add{width:100%;justify-content:center;border:1.5px dashed rgba(42,142,168,.45);background:rgba(255,255,255,.25);box-shadow:none;color:var(--accent);padding:14px}
+.btn-add:hover{background:rgba(255,255,255,.55)}
+
+/* Preview */
+.preview-col{position:sticky;top:100px}
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.screen{border-radius:24px;padding:12px}
+.screen-bar{display:flex;align-items:center;gap:7px;padding:2px 4px 12px}
+.screen-bar i{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.8);border:1px solid rgba(9,46,57,.12)}
+.screen-bar span{margin-left:6px;font-size:12.5px;color:var(--muted);font-weight:600}
+.device{display:inline-flex;margin-left:auto;background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.8);border-radius:11px;padding:3px}
+.device button{border:0;background:transparent;font-size:12px;font-weight:700;padding:6px 11px;border-radius:8px;color:var(--muted);cursor:pointer}
+.device button.on{background:rgba(255,255,255,.95);color:var(--navy);box-shadow:0 2px 8px rgba(9,46,57,.1)}
+.frame-wrap{border-radius:16px;overflow:hidden;display:flex;justify-content:center;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.7)}
+#preview{border:0;width:100%;height:calc(100vh - 230px);min-height:540px;display:block;background:#e3f0f5;transition:width .2s}
+@media (max-width:1100px){.preview-col{position:static}#preview{height:760px}}
+
+.toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,16px);color:var(--navy);padding:12px 18px;border-radius:14px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:92vw;text-align:center;background:rgba(255,255,255,.75)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.bad{color:#fff;background:rgba(194,65,59,.9)}
+
+/* PNG button */
+.btn:disabled{opacity:.5;cursor:wait}
+.btn{white-space:nowrap}
+.toolbar{flex-wrap:wrap}
+.btn-png{border-color:rgba(42,142,168,.35);color:var(--accent)}
+.btn-png:hover{background:rgba(255,255,255,.85)}
+</style>
+</head>
+<body>
+
+<header class="topbar glass">
+  <div class="brand">
+    <img class="brand-logo" alt="EHCNYC Elite Health Center NYC">
+    <div class="brand-divider"></div>
+    <div>
+      <h1>You Requested a Refill</h1>
+      <p>Refill email, internal use</p>
+    </div>
+  </div>
+  <div class="order-chip" id="chipOrder">New refill email</div>
+</header>
+
+<main class="layout">
+  <section class="form-col">
+
+    <div class="card glass">
+      <div class="card-head"><h2>Patient information</h2></div>
+      <div class="grid">
+        <div class="field"><label>Name <span class="req">*</span></label><input data-k="name" placeholder="Last, First" autocomplete="off"></div>
+        <div class="field"><label>Phone #</label><input data-k="phone" type="tel" inputmode="tel" placeholder="(917) 000-0000" autocomplete="off"></div>
+        <div class="field"><label>Email</label><input data-k="email" type="email" placeholder="patient@email.com"></div>
+        <div class="field"><label>Refill request date</label><input data-k="date" type="date"></div>
+      </div>
+    </div>
+
+    <div class="card glass">
+      <div class="card-head"><h2>Email message</h2></div>
+      <div class="grid">
+        <div class="field span-3"><label>Refill request form <span class="req">*</span></label><select data-k="formMsg" data-opts="formMessages" data-ph="Select how the form was sent"></select></div>
+        <div class="field span-3"><label>Programs link</label><input data-k="programsUrl" type="url" placeholder="https://"><p class="help">The word &ldquo;here&rdquo; in &ldquo;Click here to view our programs!&rdquo; opens this link. Clear it to leave that line out.</p></div>
+      </div>
+    </div>
+
+  </section>
+
+  <aside class="preview-col">
+    <div class="toolbar">
+      <button type="button" class="btn btn-primary" id="copyGmail">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy for Gmail
+      </button>
+      <button type="button" class="btn btn-png" id="downloadPng" title="Download the email as a PNG image (the image is also copied to your clipboard)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        PNG
+      </button>
+      <button type="button" class="btn" id="copyCode" title="Copy raw HTML for n8n, GHL, etc.">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+        Copy HTML
+      </button>
+      <button type="button" class="btn" id="download" title="Download .html" aria-label="Download .html">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      </button>
+      <button type="button" class="btn" id="reset" title="Clear form" aria-label="Clear form">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.5 15a9 9 0 1 0 2.1-9.4L1 10"/></svg>
+      </button>
+    </div>
+    <div class="screen glass">
+      <div class="screen-bar">
+        <i></i><i></i><i></i><span>Email preview</span>
+        <div class="device" role="group" aria-label="Preview width">
+          <button type="button" class="on" data-w="100%">Desktop</button>
+          <button type="button" data-w="390px">Mobile</button>
+        </div>
+      </div>
+      <div class="frame-wrap"><iframe id="preview" title="Email preview"></iframe></div>
+    </div>
+  </aside>
+</main>
+
+<div class="toast glass" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   CONFIG: dropdown messages, programs link, signature, notice
+   ============================================================ */
+const CONFIG = {
+  clinicName: 'Elite Health Center NYC',
+  tagline: "New York's Premier Online Weight Loss Clinic.",
+  logoData: 'data:image/png;base64,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',
+  logoUrl: '',            // hosted https logo; overrides logoData in the email when set
+  formMessages: [                       // the "Refill request form" dropdown, shown word for word in the email
+    'A refill request form has been emailed to you.',
+    'A link to a refill request form has been texted to you.'
+  ],
+  programsUrl: 'https://www.elitehealthcenternyc.com/',   // where "here" in "Click here to view our programs!" points (editable in the form)
+  clearanceNote: 'Medical clearance is required prior to fulfillment of your order.',   // important notice under the programs line
+  orderByPhone: 'If you wish to place an order via phone, please call us at 917-408-6103. We would be happy to assist you!',   // italic line above the programs link (the phone emoji is added in the template)
+  signature: {
+    rating: '4.9',
+    address: ['245 Fifth Avenue Third Floor', 'New York, NY 10016'],
+    team: 'Patient Support Team',
+    hours: ['Mon-Thur: 9am to 7pm ET', 'Fri: 9am to 5pm ET'],
+    phone: '(917) 408-6103',
+    email: 'support@elitehealthcenter.com',
+    website: 'www.elitehealthcenternyc.com'
+  },
+  confidentiality: 'The information contained in this e-mail and any attachments may be legally privileged and confidential. If you are not an intended recipient, you are hereby notified that any dissemination, distribution, or copying of this e-mail is strictly prohibited. If you have received this e-mail in error, please notify the sender and permanently delete the e-mail and any attachments immediately. You should not retain, copy or use this e-mail or any attachment for any purpose, nor disclose all or any part of the contents to any other person.'
+};
+
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const nl2br = v => esc(v).replace(/\r?\n/g, '<br>');
+const safeUrl = u => (/^https?:\/\/\S+$/i.test(u || '') ? u : '');
+const parseISO = v => new Date(v + 'T00:00:00');
+const fmtDate = v => {
+  if (!v) return '';
+  const d = parseISO(v);
+  return isNaN(d) ? v : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+};
+const fmtMonth = v => { // "2027-03" -> "Mar 2027"
+  if (!v) return '';
+  const d = new Date(v + '-01T00:00:00');
+  return isNaN(d) ? v : d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+};
+const fmtMoney = v => {
+  if (v === '') return '';
+  const n = Number(v);
+  return isNaN(n) ? v : '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
+const todayISO = () => {
+  const d = new Date();
+  return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+};
+const joinList = a => (a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]);
+function fillSelect(sel, list, ph) {
+  sel.innerHTML = (ph !== undefined ? `<option value="">${esc(ph)}</option>` : '') +
+    list.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
+}
+/* ---------- phone auto-format: (917) 555-0142 ---------- */
+function formatPhone(digits) {
+  digits = digits.slice(0, 10);
+  if (!digits) return '';
+  const a = digits.slice(0, 3), b = digits.slice(3, 6), c = digits.slice(6);
+  if (digits.length < 4) return `(${a}`;
+  if (digits.length < 7) return `(${a}) ${b}`;
+  return `(${a}) ${b}-${c}`;
+}
+function handlePhoneInput(el) {
+  const caret = el.selectionStart ?? el.value.length;
+  let before = el.value.slice(0, caret).replace(/\D/g, '').length;
+  let digits = el.value.replace(/\D/g, '');
+  if (digits.length >= 11 && digits[0] === '1') { // drop +1 country code
+    digits = digits.slice(1);
+    before = Math.max(0, before - 1);
+  }
+  const out = formatPhone(digits);
+  el.value = out;
+  let pos = 0, seen = 0;
+  if (before === 0) {
+    pos = out.search(/\d/); if (pos < 0) pos = out.length;
+  } else {
+    while (pos < out.length && seen < before) { if (/\d/.test(out[pos])) seen++; pos++; }
+  }
+  if (document.activeElement === el) el.setSelectionRange(pos, pos);
+}
+function handlePhoneKeydown(e) {
+  const el = e.target;
+  if (e.key !== 'Backspace' || el.selectionStart !== el.selectionEnd) return;
+  let p = el.selectionStart;
+  if (p > 0 && /\D/.test(el.value[p - 1])) {
+    while (p > 0 && /\D/.test(el.value[p - 1])) p--;
+    el.setSelectionRange(p, p); // Backspace removes the digit, not the bracket/space/dash
+  }
+}
+
+/* ---------- form ---------- */
+function applyDefaults() {
+  $$('[data-k]').forEach(el => { el.value = ''; });
+  $$('select[data-opts]').forEach(sel => fillSelect(sel, CONFIG[sel.dataset.opts], sel.dataset.ph));
+  $('[data-k=date]').value = todayISO();
+  $('[data-k=programsUrl]').value = CONFIG.programsUrl;
+  $$('.field.invalid').forEach(f => f.classList.remove('invalid'));
+}
+
+
+function readState() {
+  const s = {};
+  $$('[data-k]').forEach(el => { s[el.dataset.k] = el.value.trim(); });
+  return s;
+}
+
+/* ============================================================
+   EMAIL TEMPLATE (Gmail-safe: tables + inline styles only)
+   ============================================================ */
+const F = "'Helvetica Neue',Helvetica,Arial,sans-serif";
+const C = {
+  navy: '#092e39', blue: '#8bcbdd', accent: '#2a8ea8', accentDark: '#1f7489', pill: '#e1f2f7',
+  ink: '#12303a', muted: '#5d7682', line: '#dcecf1', panel: '#f3f9fb', stat: '#eef7fa',
+  page: '#e3f0f5', card: '#fbfdfe', hl: '#dff1f6', hlLine: '#b9e1ec', danger: '#c62828'
+};
+
+function heading(text, right = '') {
+  return `<tr><td style="padding:28px 30px 10px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+<td width="4" style="width:4px;background-color:${C.blue};border-radius:2px;font-size:0;line-height:0;">&nbsp;</td>
+<td style="padding-left:10px;font-family:${F};font-size:16px;line-height:20px;font-weight:700;color:${C.navy};">${esc(text)}</td>
+${right ? `<td align="right" style="padding-left:10px;font-family:${F};font-size:13px;line-height:20px;font-weight:700;color:${C.muted};white-space:nowrap;">${esc(right)}</td>` : ''}
+</tr></table></td></tr>`;
+}
+
+const spacer = h => `<tr><td style="height:${h}px;font-size:0;line-height:${h}px;">&nbsp;</td></tr>`;
+
+function panel(innerRows) {
+  return `<tr><td style="padding:0 30px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;background-color:${C.panel};border:1px solid ${C.line};border-radius:14px;box-shadow:inset 0 1px 0 #ffffff,0 4px 14px rgba(9,46,57,0.05);">${innerRows}</table>
+</td></tr>`;
+}
+
+function kvPanel(rows) {
+  const list = rows.filter(r => r[1] !== '' && r[1] != null);
+  if (!list.length) return '';
+  return panel(list.map(([k, v, raw, opt = {}], i) => {
+    const top = i ? `border-top:1px solid ${C.line};` : '';
+    const last = i === list.length - 1;
+    const bg = opt.bg ? `background-color:${opt.bg};` : '';
+    const rl = opt.bg && last ? 'border-radius:0 0 0 13px;' : '';
+    const rr = opt.bg && last ? 'border-radius:0 0 13px 0;' : '';
+    return `<tr>
+<td width="42%" valign="${opt.valign || 'top'}" style="padding:11px 16px;${top}${bg}${rl}font-family:${F};font-size:13px;line-height:19px;color:${opt.labelColor || C.muted};${opt.labelWeight ? `font-weight:${opt.labelWeight};` : ''}">${esc(k)}</td>
+<td valign="${opt.valign || 'top'}" style="padding:11px 16px;${top}${bg}${rr}font-family:${F};font-size:14px;line-height:20px;font-weight:600;color:${C.ink};">${raw ? v : esc(v)}</td>
+</tr>`;
+  }).join(''));
+}
+
+function button(url, text, primary) {
+  const bg = primary ? C.blue : C.navy;
+  const style = primary
+    ? `background-color:${bg};background-image:linear-gradient(135deg,#a9dae8 0%,${C.blue} 100%);border:1px solid ${C.hlLine};box-shadow:0 8px 20px rgba(42,142,168,0.25);`
+    : `background-color:${bg};border:1.5px solid ${C.navy};`;
+  return `<tr><td align="center" style="padding:0 30px 12px;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+<td align="center" bgcolor="${bg}" style="${style}border-radius:12px;">
+<a href="${esc(url)}" target="_blank" style="display:inline-block;min-width:220px;padding:14px 26px;font-family:${F};font-size:15px;line-height:20px;font-weight:700;color:#ffffff;text-decoration:none;text-align:center;white-space:nowrap;border-radius:12px;">${esc(text)}</a>
+</td></tr></table></td></tr>`;
+}
+
+function signatureBlock(logoSrc) {
+  const S = CONFIG.signature;
+  const txt = (size, extra) => `font-family:${F};font-size:${size}px;line-height:${Math.round(size * 1.45)}px;${extra}`;
+  const a = (href, text, underline) => `<a href="${esc(href)}" target="_blank" style="color:${C.navy};text-decoration:${underline ? 'underline' : 'none'};">${esc(text)}</a>`;
+  const left = `<div style="width:100%;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="padding:8px 10px;">
+<img src="${esc(logoSrc)}" alt="EHCNYC Elite Health Center NYC" width="170" style="display:block;margin:0 auto;width:170px;max-width:170px;height:auto;border:0;outline:none;">
+<div style="${txt(13, 'font-weight:700;color:#3b4b52;padding-top:8px;')}">${esc(S.rating)} <span style="font-size:15px;letter-spacing:1px;color:#f5b301;">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+<div style="${txt(13, `font-style:italic;color:#3b4b52;padding-top:10px;`)}">${S.address.map(esc).join('<br>')}</div>
+</td></tr></table>
+</div>`;
+  const line = content => `<div style="${txt(14, `color:${C.ink};padding-top:9px;`)}">${content}</div>`;
+  const right = `<div style="width:100%;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="padding:14px 10px 8px;text-align:center;">
+<div style="${txt(17, `font-weight:800;color:${C.navy};`)}">${esc(S.team)}</div>
+${S.hours.map(h => line(esc(h))).join('')}
+${line(`Phone/Text: ${a('tel:+1' + S.phone.replace(/\D/g, ''), S.phone, false)}`)}
+${line(a('mailto:' + S.email, S.email, true))}
+${line(a('https://' + S.website, S.website, true))}
+</td></tr></table>
+</div>`;
+  return `<tr><td style="padding:30px 30px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="border-collapse:separate;background-color:#ffffff;border:1px solid ${C.line};border-radius:16px;box-shadow:0 6px 18px rgba(9,46,57,0.06);">
+<tr><td align="center" style="padding:18px 12px;text-align:center;">${left}${right}</td></tr>
+</table></td></tr>
+<tr><td style="padding:14px 30px 0;font-family:${F};font-size:10.5px;line-height:15px;color:#7b8f98;text-align:left;">
+<span style="font-weight:700;color:${C.muted};">CONFIDENTIALITY NOTICE:</span> ${esc(CONFIG.confidentiality)}
+</td></tr>`;
+}
+
+// Highlighted (blue) callout
+function callout(text, top) {
+  return `<tr><td style="padding:${top}px 30px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${C.hl}" style="border-collapse:separate;background-color:${C.hl};border:1px solid ${C.hlLine};border-radius:14px;">
+<tr><td style="padding:16px 18px;font-family:${F};font-size:15px;line-height:23px;font-weight:700;color:${C.navy};">${esc(text)}</td></tr>
+</table></td></tr>`;
+}
+
+// Important notice: warm yellow box with bold text, so it stands apart from the blue callout
+function notice(text, top) {
+  return `<tr><td style="padding:${top}px 30px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fff6c9" style="border-collapse:separate;background-color:#fff6c9;border:1px solid #f0d56a;border-radius:14px;">
+<tr><td style="padding:16px 18px;font-family:${F};font-size:16px;line-height:24px;font-weight:800;color:${C.navy};">${esc(text)}</td></tr>
+</table></td></tr>`;
+}
+
+// The dropdown message in a callout, the phone line, the programs line with "here" linked, then the medical clearance notice
+function refillBlock(s) {
+  const url = safeUrl(s.programsUrl);
+  const msg = s.formMsg ? callout(s.formMsg, 22) : '';
+  const phone = `<tr><td style="padding:${s.formMsg ? 16 : 22}px 30px 0;font-family:${F};font-size:15px;line-height:23px;font-style:italic;color:${C.ink};">&#128222; ${esc(CONFIG.orderByPhone)}</td></tr>`;
+  const programs = url ? `<tr><td style="padding:16px 30px 0;font-family:${F};font-size:15px;line-height:23px;color:${C.ink};">Click <a href="${esc(url)}" target="_blank" style="color:${C.accentDark};font-weight:700;text-decoration:underline;">here</a> to view our programs!</td></tr>` : '';
+  return msg + phone + programs + notice(CONFIG.clearanceNote, 18);
+}
+
+function buildEmailBody(s) {
+  const logoSrc = safeUrl(CONFIG.logoUrl) || CONFIG.logoData;
+  const logo = `<img src="${esc(logoSrc)}" alt="EHCNYC Elite Health Center NYC" width="140" style="display:block;width:140px;max-width:140px;height:auto;border:0;outline:none;text-decoration:none;">`;
+
+  const details = kvPanel([
+    ['Name', s.name],
+    ['Phone #', s.phone],
+    ['Email', s.email],
+    ['Refill request date', fmtDate(s.date)]
+  ]);
+
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${C.page}" style="background-color:${C.page};background-image:linear-gradient(160deg,#d3eaf2 0%,#eef6f9 45%,#d8e9ef 100%);">
+<tr><td align="center" style="padding:28px 12px;">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;border-collapse:separate;background-color:${C.card};border:1px solid #ffffff;border-radius:20px;box-shadow:0 0 0 1px #cfe3ea,0 16px 40px rgba(9,46,57,0.12);">
+
+<tr><td align="center" bgcolor="#eef7fa" style="background-color:#eef7fa;background-image:linear-gradient(135deg,#ffffff 0%,#e2f2f7 100%);padding:22px 20px;border-radius:19px 19px 0 0;border-bottom:1px solid ${C.line};text-align:center;font-size:0;line-height:0;">
+<!-- logo + title as one centered lockup; on narrow screens the title sits centered under the logo -->
+<div style="display:inline-block;vertical-align:middle;padding:4px 12px;">${logo}</div><div style="display:inline-block;vertical-align:middle;max-width:100%;padding:4px 12px;">
+<div style="font-family:${F};font-size:18px;line-height:24px;font-weight:800;color:${C.navy};">You Requested a Refill</div>
+</div>
+</td></tr>
+
+<tr><td style="padding:26px 30px 0;font-family:${F};">
+<div style="font-size:18px;line-height:24px;font-weight:700;color:${C.ink};">Hi there,</div>
+<div style="font-size:15px;line-height:23px;color:${C.muted};padding-top:6px;">Thank you for choosing ${esc(CONFIG.clinicName)}!</div>
+<div style="font-size:15px;line-height:23px;font-style:italic;color:${C.accentDark};padding-top:2px;">${esc(CONFIG.tagline)}</div>
+</td></tr>
+
+${refillBlock(s)}
+
+${heading('Your details')}
+${details}
+${signatureBlock(logoSrc)}
+
+<tr><td style="padding:22px 30px 0;"><div style="border-top:1px solid ${C.line};font-size:0;line-height:0;">&nbsp;</div></td></tr>
+<tr><td align="center" style="padding:16px 30px 28px;font-family:${F};font-size:12px;line-height:19px;color:${C.muted};">
+Questions? Just reply to this email.<br>
+<span style="font-weight:700;color:${C.navy};">${esc(CONFIG.clinicName)}</span>
+</td></tr>
+
+</table>
+</td></tr>
+</table>`;
+}
+
+function buildEmailDoc(s) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="x-apple-disable-message-reformatting">
+<title>You Requested a Refill | ${esc(CONFIG.clinicName)}</title>
+</head>
+<body style="margin:0;padding:0;background-color:${C.page};">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">You requested a refill. Next steps from ${esc(CONFIG.clinicName)}.</div>
+${buildEmailBody(s)}
+</body>
+</html>`;
+}
+
+/* ---------- preview ---------- */
+const frame = $('#preview');
+let frameReady = false, raf = 0;
+frame.addEventListener('load', () => { frameReady = true; render(); });
+frame.srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0;background:${C.page};"></body></html>`;
+
+function render() {
+  cancelAnimationFrame(raf);
+  raf = requestAnimationFrame(() => {
+    const s = readState();
+    $('#chipOrder').textContent = s.name || 'New refill email';
+    if (!frameReady) return;
+    try { frame.contentDocument.body.innerHTML = buildEmailBody(s); }
+    catch { frame.srcdoc = buildEmailDoc(s); }
+  });
+}
+
+/* ---------- validation / copy / download ---------- */
+function validate() {
+  $$('.field.invalid').forEach(f => f.classList.remove('invalid'));
+  const miss = [];
+  const flag = (el, label) => { el.closest('.field').classList.add('invalid'); miss.push(label); };
+  const name = $('[data-k=name]'), phone = $('[data-k=phone]'), email = $('[data-k=email]');
+  const formMsg = $('[data-k=formMsg]'), url = $('[data-k=programsUrl]');
+  if (!name.value.trim()) flag(name, 'name');
+  if (!formMsg.value) flag(formMsg, 'refill request form message');
+  if (url.value.trim() && !safeUrl(url.value.trim())) flag(url, 'programs link (it must start with https://)');
+  if (phone.value && phone.value.replace(/\D/g, '').length !== 10) flag(phone, 'full 10-digit phone number');
+  if (email.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) flag(email, 'valid email');
+  return miss;
+}
+
+function guard() {
+  const miss = validate();
+  if (!miss.length) return true;
+  toast('Add the ' + joinList(miss) + ' first', true);
+  const f = $('.field.invalid');
+  if (f) f.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  return false;
+}
+
+function toPlain(html) {
+  const d = new DOMParser().parseFromString(html, 'text/html');
+  return d.body.textContent.replace(/[ \t]+/g, ' ').replace(/\s*\n\s*/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+async function copyRich(html) {
+  try {
+    if (!window.ClipboardItem || !navigator.clipboard || !navigator.clipboard.write) throw new Error('no api');
+    await navigator.clipboard.write([new ClipboardItem({
+      'text/html': new Blob([html], { type: 'text/html' }),
+      'text/plain': new Blob([toPlain(html)], { type: 'text/plain' })
+    })]);
+    return true;
+  } catch {
+    const box = document.createElement('div');
+    box.style.cssText = 'all:initial;position:fixed;left:-10000px;top:0;';
+    box.innerHTML = html;
+    document.body.appendChild(box);
+    const sel = getSelection(), range = document.createRange();
+    range.selectNodeContents(box);
+    sel.removeAllRanges(); sel.addRange(range);
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch {}
+    sel.removeAllRanges(); box.remove();
+    return ok;
+  }
+}
+
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); return true; }
+  catch {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.cssText = 'position:fixed;left:-10000px;top:0;';
+    document.body.appendChild(ta); ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch {}
+    ta.remove();
+    return ok;
+  }
+}
+
+let toastTimer;
+function toast(msg, bad = false) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.toggle('bad', bad);
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3600);
+}
+
+$('#copyGmail').addEventListener('click', async () => {
+  if (!guard()) return;
+  const ok = await copyRich(buildEmailBody(readState()));
+  toast(ok ? 'Copied. Open Gmail, click Compose, and paste.' : 'Copy was blocked. Click inside the preview, press Ctrl+A, then Ctrl+C.', !ok);
+});
+
+$('#copyCode').addEventListener('click', async () => {
+  if (!guard()) return;
+  const ok = await copyText(buildEmailDoc(readState()));
+  toast(ok ? 'HTML code copied' : 'Copy was blocked. Use the download button instead.', !ok);
+});
+
+$('#download').addEventListener('click', () => {
+  if (!guard()) return;
+  const s = readState();
+  const blob = new Blob([buildEmailDoc(s)], { type: 'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `you-requested-a-refill-${(s.name || 'draft').replace(/[^\w-]+/g, '_')}.html`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1500);
+  toast('Downloaded');
+});
+
+/* ---------- PNG: download + copy the image to the clipboard ---------- */
+function saveBlob(blob, name) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1500);
+}
+
+/* Email -> PNG: the email markup is drawn into an SVG foreignObject, then onto a canvas at 2x. */
+async function emailToPng(html) {
+  const W = 640;
+  const wrap = document.createElement('div');
+  wrap.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
+  wrap.style.cssText = `width:${W}px;margin:0;padding:0;font-family:${F};`;
+  wrap.innerHTML = html;
+  const probe = wrap.cloneNode(true);
+  probe.style.cssText += 'position:fixed;left:-10000px;top:0;';
+  document.body.appendChild(probe);
+  const H = Math.ceil(probe.getBoundingClientRect().height);
+  probe.remove();
+  const xml = new XMLSerializer().serializeToString(wrap);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><foreignObject x="0" y="0" width="${W}" height="${H}">${xml}</foreignObject></svg>`;
+  const img = new Image();
+  await new Promise((res, rej) => {
+    img.onload = res; img.onerror = () => rej(new Error('render failed'));
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  });
+  const scale = 2;
+  const cv = document.createElement('canvas');
+  cv.width = W * scale; cv.height = H * scale;
+  const ctx = cv.getContext('2d');
+  ctx.scale(scale, scale);
+  ctx.drawImage(img, 0, 0);
+  return new Promise((res, rej) => cv.toBlob(b => (b ? res(b) : rej(new Error('export failed'))), 'image/png'));
+}
+
+// Puts the PNG on the clipboard as an image (paste it straight into a chat or email). Resolves true / false, never throws.
+async function copyImage(pngPromise) {
+  if (!window.ClipboardItem || !navigator.clipboard || !navigator.clipboard.write) return false;
+  try {
+    // handing over the pending PNG keeps this inside the click, which Safari and Chrome both require
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': pngPromise })]);
+    return true;
+  } catch {
+    try {
+      const blob = await pngPromise;
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      return true;
+    } catch { return false; }
+  }
+}
+
+$('#downloadPng').addEventListener('click', async () => {
+  if (!guard()) return;
+  const btn = $('#downloadPng');
+  btn.disabled = true;
+  const s = readState();
+  const png = emailToPng(buildEmailBody(s));
+  png.catch(() => {});                 // handled below; keeps the clipboard attempt from raising an unhandled rejection
+  const copied = copyImage(png);       // starts now, in the click, while the image is still being drawn
+  try {
+    const blob = await png;
+    saveBlob(blob, `you-requested-a-refill-${(s.name || 'draft').replace(/[^\w-]+/g, '_')}.png`);
+    toast((await copied)
+      ? 'PNG downloaded and copied to your clipboard'
+      : 'PNG downloaded. Your browser blocked copying it to the clipboard, so open the file to use it.');
+  } catch (e) {
+    toast('Could not create the PNG in this browser. Try Chrome or Edge.', true);
+  } finally { btn.disabled = false; }
+});
+
+$('#reset').addEventListener('click', () => {
+  if (!confirm('Clear the form and start a new refill email?')) return;
+  applyDefaults();
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  toast('Form cleared');
+});
+
+$$('.device button').forEach(b => b.addEventListener('click', () => {
+  $$('.device button').forEach(x => x.classList.toggle('on', x === b));
+  frame.style.width = b.dataset.w;
+}));
+
+/* ---------- live updates ---------- */
+const formCol = $('.form-col');
+const phoneEl = $('[data-k=phone]');
+phoneEl.addEventListener('keydown', handlePhoneKeydown);
+formCol.addEventListener('input', e => {
+  if (e.target === phoneEl) handlePhoneInput(phoneEl);
+  const f = e.target.closest('.field');
+  if (f) f.classList.remove('invalid');
+  render();
+});
+formCol.addEventListener('change', render);
+
+/* ---------- init ---------- */
+$('.brand-logo').src = CONFIG.logoData;
+applyDefaults();
+render();
+</script>
+</body>
+</html>
