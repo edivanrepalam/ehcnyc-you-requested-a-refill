@@ -117,6 +117,8 @@ button{font:inherit}
 .toolbar{flex-wrap:wrap}
 .btn-png{border-color:rgba(42,142,168,.35);color:var(--accent)}
 .btn-png:hover{background:rgba(255,255,255,.85)}
+.program-price-row [data-price-remove]{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);color:var(--muted);font-size:21px;cursor:pointer}
+.program-price-row [data-price-remove]:hover{background:rgba(255,255,255,.9);color:var(--accent)}
 </style>
 </head>
 <body>
@@ -152,6 +154,13 @@ button{font:inherit}
         <div class="field span-3"><label>Refill request form <span class="req">*</span></label><select data-k="formMsg" data-opts="formMessages" data-ph="Select how the form was sent"></select></div>
         <div class="field span-3"><label>Programs link</label><input data-k="programsUrl" type="url" placeholder="https://"><p class="help">The word &ldquo;here&rdquo; in &ldquo;Click here to view our programs!&rdquo; opens this link. Clear it to leave that line out.</p></div>
       </div>
+    </div>
+
+    <div class="card glass">
+      <div class="card-head"><h2>Medication pricing <span class="sub">(optional)</span></h2></div>
+      <p class="help">Select a medication and program to fill the medication price. You can edit the price; shipping and consultation fees are separate.</p>
+      <div id="programPriceRows"></div>
+      <button type="button" class="btn btn-add" id="addProgramPrice">+ Add another program</button>
     </div>
 
   </section>
@@ -288,8 +297,67 @@ function handlePhoneKeydown(e) {
   }
 }
 
+/* Optional medication prices. Unlisted products and programs are unchanged. */
+const PROGRAM_PRICES = {
+  'Compounded Tirzepatide/Glycine/B12': { '1mL-10mg': 179, '2mL-20mg': 349, '4mL-40mg': 599, '6mL-60mg': 799, '8mL-80mg': 949, '9mL-90mg': 1249, '12mL-120mg': 1399, '16mL-160mg': 1799 },
+  'Compounded Tirzepatide Flex-Dose': { '1mL-10mg': 179, '2mL-20mg': 349, '3mL-30mg': 499, '4mL-40mg': 599, '5mL-50mg': 699, '6mL-60mg': 799, '10mL-100mg': 1299 },
+  'Compounded Semaglutide/Glycine/B12': { '1mL-5mg': 249, '2mL-10mg': 449, '3mL-15mg': 699, '4mL-20mg': 749 },
+  'Compounded Semaglutide Flex-Dose': { '1mL-2.5mg': 129, '2mL-5mg': 189, '3mL-7.5mg': 349, '5mL-12.5mg': 549, '3mL-15mg (5mg/mL)': 649, '10mL-25mg': 999 }
+};
+function addProgramPriceRow() {
+  const row = document.createElement('div');
+  row.className = 'program-price-row';
+  row.style.cssText = 'margin:16px 0;padding:14px;border:1px solid rgba(255,255,255,.85);border-radius:14px;background:rgba(255,255,255,.28);';
+  row.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><strong>Medication program</strong><button type="button" class="icon-btn" data-price-remove aria-label="Remove medication program" title="Remove medication program">&times;</button></div>
+  <div class="grid"><div class="field"><label>Medication</label><select data-price="product" aria-label="Medication"></select></div><div class="field"><label>Program</label><select data-price="program" aria-label="Program" disabled><option value="">Pick a medication first</option></select></div><div class="field"><label>Program price</label><div class="money"><span>$</span><input data-price="amount" aria-label="Program price" type="number" min="0" step="0.01" placeholder="0.00" disabled></div></div></div>`;
+  fillSelect($('[data-price=product]', row), Object.keys(PROGRAM_PRICES), 'Select');
+  $('#programPriceRows').appendChild(row);
+}
+function resetProgramPrices() {
+  $('#programPriceRows').innerHTML = '';
+  addProgramPriceRow();
+}
+function readProgramPrices() {
+  return $$('.program-price-row').map(row => ({ product: $('[data-price=product]', row).value, program: $('[data-price=program]', row).value, amount: $('[data-price=amount]', row).value.trim() })).filter(x => x.product && x.program && x.amount !== '' && Number.isFinite(Number(x.amount)) && Number(x.amount) >= 0);
+}
+function validateProgramPrices(miss) {
+  $$('.program-price-row').forEach(row => {
+    const product = $('[data-price=product]', row), program = $('[data-price=program]', row), amount = $('[data-price=amount]', row);
+    if (!product.value && !program.value && !amount.value) return;
+    [[product, 'medication'], [program, 'program'], [amount, 'program price']].forEach(([el, label]) => {
+      if (!el.value || (el === amount && (!Number.isFinite(Number(el.value)) || Number(el.value) < 0))) {
+        el.closest('.field').classList.add('invalid');
+        if (!miss.includes(label + ' for medication pricing')) miss.push(label + ' for medication pricing');
+      }
+    });
+  });
+}
+function programPricesBlock(rows) {
+  if (!rows.length) return '';
+  return heading('Medication pricing') + kvPanel(rows.map(x => [x.product, `${x.program} — ${fmtMoney(x.amount)}`]));
+}
+$('#addProgramPrice').addEventListener('click', () => { addProgramPriceRow(); render(); });
+$('#programPriceRows').addEventListener('click', e => {
+  const button = e.target.closest('[data-price-remove]');
+  if (button) { button.closest('.program-price-row').remove(); render(); }
+});
+$('#programPriceRows').addEventListener('change', e => {
+  const row = e.target.closest('.program-price-row');
+  if (!row) return;
+  const product = $('[data-price=product]', row), program = $('[data-price=program]', row), amount = $('[data-price=amount]', row);
+  if (e.target === product) {
+    fillSelect(program, Object.keys(PROGRAM_PRICES[product.value] || {}), product.value ? 'Select' : 'Pick a medication first');
+    program.disabled = !product.value; amount.value = ''; amount.disabled = true;
+  } else if (e.target === program) {
+    const price = (PROGRAM_PRICES[product.value] || {})[program.value];
+    amount.value = price == null ? '' : Number(price).toFixed(2); amount.disabled = price == null;
+  }
+  render();
+});
+
 /* ---------- form ---------- */
 function applyDefaults() {
+  resetProgramPrices();
   $$('[data-k]').forEach(el => { el.value = ''; });
   $$('select[data-opts]').forEach(sel => fillSelect(sel, CONFIG[sel.dataset.opts], sel.dataset.ph));
   $('[data-k=date]').value = todayISO();
@@ -301,6 +369,7 @@ function applyDefaults() {
 function readState() {
   const s = {};
   $$('[data-k]').forEach(el => { s[el.dataset.k] = el.value.trim(); });
+  s.programPrices = readProgramPrices();
   return s;
 }
 
@@ -443,6 +512,7 @@ function buildEmailBody(s) {
 </td></tr>
 
 ${refillBlock(s)}
+${programPricesBlock(s.programPrices)}
 
 ${heading('Your details')}
 ${details}
@@ -504,6 +574,7 @@ function validate() {
   if (url.value.trim() && !safeUrl(url.value.trim())) flag(url, 'programs link (it must start with https://)');
   if (phone.value && phone.value.replace(/\D/g, '').length !== 10) flag(phone, 'full 10-digit phone number');
   if (email.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) flag(email, 'valid email');
+  validateProgramPrices(miss);
   return miss;
 }
 
